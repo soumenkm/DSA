@@ -35,5 +35,19 @@ int main() {
     // To access any name from namespace we use namespace_name::name. A namespace is defined by 
     // namespace name_space {...}
 
+    // auto has different meaning in C++
+    // auto is used to infer the types in compile time
+    auto str = "hello"; // const char*
+    auto aaa = 34.6; // double
+
+    // decltype is used to determine the type in compiler time
+    int pq = 45;
+    decltype(pq) cy = 90; // means int cq = 90
+
+    // type alias
+    typedef double df; // now double will be referred to df
+    using f = float; // now float will be referred to f
+    constexpr int ap = 40; // constexpr will put top level const in object
+
     return 0;
 }
