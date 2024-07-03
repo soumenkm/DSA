@@ -1,4 +1,7 @@
 #include <iostream>
+#include <vector>
+#include <stdexcept>
+#include <cassert>
 
 using namespace std;
 
@@ -16,7 +19,7 @@ int j() {
 }
 
 int main() {
-    cout << "Hello World!" << endl;
+    // cout << "Hello World!" << endl;
 
     // Order of evaluation, precedance and associativity
     // Precedence guarentees that the result of g() and h() are multiplied
@@ -66,7 +69,7 @@ int main() {
     int* pss = &ss; // pss points to 4B in memory and jumps over 4B
     char* pss2 = reinterpret_cast<char*>(pss); // converts int* to char* so pss2 points to 1B in memory and jumps to 1B. 
     *pss2 = 98; // we modified the actual object value of ss! (dangereous!)
-    cout << *pss2 << endl; // it prints b
+    // cout << *pss2 << endl; // it prints b
 
     // function and C style cast
     int zz = 30;
@@ -77,6 +80,38 @@ int main() {
     // use it as the name is auto converted if possible so always use named cast for more clarity
     // char* pc = (char*) pss; // this takes the form of reinterpret cast so it's not so clear and hard to spot on
 
+    // dynamic_cast
+    // it is for objects conversion from base to derived
+
+    // range for statement
+    vector<int> vec = {1,2,3,4,5}; // This is a vector of int
+    // We want to iterate over the elements of the vector like in python
+    // for (int elem: vec) { // we could have used auto also here
+    //     cout << elem << " ";
+    // }
+    // We can't use this loop to add or delete elements of vec because that is used
+    // for the enumeration and it is converted to for loop with begin and end methods
+    // so if we add or remove then begin and end pointer is changed so don't change the length of the vec in loop
+
+    // Exception handling
+    // throw runtime_error("Error occurred!"); // if we want to raise an exception
+
+    int gh = 30;
+    int gg = 0;
+
+    // try {
+    //     int kk = gh/gg; // does not throw runtime error directly, undefined behaviour
+    //     throw runtime_error("Division by zero is not allowed!");
+    // } catch (runtime_error e) {
+    //     cout << "Exception occurred! " << e.what() << endl;
+    // }
+    // if you provide exception in place of runtime error in catch then it will print
+    // the what part as std::exception so it's better to know what i sthe type of exception
+
+    // assertion
+    int df = 34;
+    int hg = 43;
+    // assert(hg == 0); // it will give error when the condition is violated
 
     return 0;
 }

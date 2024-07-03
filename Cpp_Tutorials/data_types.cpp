@@ -12,7 +12,7 @@ int main() {
     int a = 42; // First creates a tmp object, stores 42 and then copies the data to a and allows type conversion
     int b = {42}; // int b{42}; Recommended as it disallows type conversion
     int c = (42); // int c(42); allows type conversion and no tmp object creation
-    int c; // Not recommended at all as it is garbage initialization
+    // int c; // Not recommended at all as it is garbage initialization
 
     // Declaration vs Definition
     // Variables can be declared many times but they acan be defined only once.
@@ -45,9 +45,48 @@ int main() {
     decltype(pq) cy = 90; // means int cq = 90
 
     // type alias
-    typedef double df; // now double will be referred to df
-    using f = float; // now float will be referred to f
+    // typedef double df; // now double will be referred to df
+    // using f = float; // now float will be referred to f
     constexpr int ap = 40; // constexpr will put top level const in object
+
+    // string
+    string s1 = "hello"; // "hello" is of type const char[6] because it ends with '\0'
+    // s1 is a copy of string literal "hello"
+    string s2("hello"); // this doesn't end with '\0'
+    string s3(10, 'c'); // this is cccccccccc without '\0'
+
+    // get input string (as a line)
+    string line;
+    string word;
+    // getline(cin, line); // read one line at a time '\n' is discarded and stops when it sees '\n'
+    // cin >> word; // this means only words separated by space will be taken as input and when it sees space then it stops
+
+    // basic methods of string object
+    string str1("hello");
+    bool isEmpty = str1.empty(); // checks if it is empty or not
+    auto len = str1.size(); // it returns size_t which is unsigned int so be careful when it is used with int in expression
+
+    // unsigned vs signed
+    int cv = -1; // 11111111 11111111 11111111 11111111
+    unsigned int cb = -1; // 11111111 11111111 11111111 11111111
+    cout << cv + cb << endl; // int is converted to unsigned int so %u of th ebit pattern of -1 is HUGE
+    
+    // concatenation of string
+    string ss1("hello");
+    string ss2("world");
+    string ss3 = ss1 + "world"; // auto converted to string if any one of operand is string
+    // string ss4 = "hello" + "world"; // error as + is not defined for const char[N]
+
+
+
+
+
+
+
+
+
+
+
 
     return 0;
 }
