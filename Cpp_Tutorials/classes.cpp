@@ -115,6 +115,60 @@ public:
     }
 };
 
+class Base {
+private:
+    // inaccessible outside of Base class
+    int a = {20};
+protected:
+    // accessible to only this class and its derived classes through access mode
+    int b = {30};
+public:
+    // accessible to everywhere (may become private or protected in Derived class)
+    int c = {40};
+};
+
+class Derived1: private Base {
+    // private access mode means 
+    // public and protected members of Base class will become private
+    // private members of Base class will become inaccessible (always)
+};
+class Derived2: protected Base {
+    // protected access mode means 
+    // public and protected members of Base class will become protected
+    // private members of Base class will become inaccessible (always)
+};
+class Derived3: public Base {
+    // public access mode means 
+    // public and protected members of Base class will remain unchanged 
+    // meaning public will remain public and protected will remain protected
+    // private members of Base class will become inaccessible (always)
+};
+
+class Complex {
+    double real = {0.0};
+    double imag = {0.0};
+
+public:
+    Complex() = default;
+    Complex(const double _real, const double _imag):
+        real{_real}, imag{_imag} {}
+    Complex(const Complex& otherRef) {
+        this -> real = otherRef.real;
+        this -> imag = otherRef.imag;
+    }
+    void print() const {
+        cout << this -> real << " + " << this -> imag << "i" << endl;
+    }
+    Complex operator+(const Complex& other) const {
+        // In operator overloading, you must pass the reference to use the opeartors 
+        // by actual operator symbol. If you use pointer then you must use &other in operator call
+        Complex res = Complex();
+        res.real = this -> real + other.real;
+        res.imag = this -> imag + other.imag;
+        return res;
+    }
+};
+
 double Bank::stock_price = {8.4}; // this type need to be specified
 int main() {
     cout << "Hello World!" << endl;
@@ -136,23 +190,40 @@ int main() {
     Book another = Book(book);
 
     // Different constructors
-    Car obj1 = Car(5, 8); // Direct constructor
-    Car obj2 = {5, 8}; // Direct constructor
-    Car obj3(5, 8); // Direct constructor
-    Car obj4{5, 8}; // Direct constructor
+    // Car obj1 = Car(5, 8); // Direct constructor
+    // Car obj2 = {5, 8}; // Direct constructor
+    // Car obj3(5, 8); // Direct constructor
+    // Car obj4{5, 8}; // Direct constructor
     
-    Car obj6 = Car(obj1); // Copy constructor
-    Car obj7 = {obj1}; // Copy constructor
-    Car obj8(obj1); // Copy constructor
-    Car obj9{obj1}; // Copy constructor
+    // Car obj6 = Car(obj1); // Copy constructor
+    // Car obj7 = {obj1}; // Copy constructor
+    // Car obj8(obj1); // Copy constructor
+    // Car obj9{obj1}; // Copy constructor
 
-    Car obj10 = Car(5, 8, 9); // Explicit Direct constructor
+    // Car obj10 = Car(5, 8, 9); // Explicit Direct constructor
     // Car obj11 = {5, 8, 9}; // It is error as the class constructor is explicit
-    Car obj12(5, 8, 9); // Explicit Direct constructor
-    Car obj13{5, 8, 9}; // Explicit Direct constructor
+    // Car obj12(5, 8, 9); // Explicit Direct constructor
+    // Car obj13{5, 8, 9}; // Explicit Direct constructor
 
     // Car obj14 = 10; // This is complier error (int to Car is implicitly not converted)
     // Car obj14 = 10; // This will be no error when it is not explicit as int to Car is implicitly performed by the complier
+
+    // Dynamic memory allocation
+    int* p1 = new int{40}; // dynamically created an int
+    int num = {20};
+    int* arr = new int[num];
+    delete[] arr; // deallocate it
+    
+    Book* bp = new Book(book); // obj is created in heap
+    delete bp; // calls the destructor of the object
+
+    // Operator overloading
+    // functions can be overloaded by their different definition signature but opeartor
+    // is overloaded using operator method
+    Complex z1 = Complex(2.4, 3.5);
+    Complex z2 = Complex(2.4, 3.5);
+    Complex z3 = z1 + z2;
+    z3.print();
 
     return 0;
 }
