@@ -1,1 +1,1 @@
-clang++ -std=c++20 -O2 -fsanitize=address program.cpp -o a.out && ./a.out
+clang++ -std=c++20 -g -O2 -fsanitize=address program.cpp -o a.out && ./a.out
