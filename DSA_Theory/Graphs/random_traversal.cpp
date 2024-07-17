@@ -32,7 +32,9 @@ vector<list<int>> createGraphList(vector<vector<int>>& graph) {
 
 class Solution {
 public:
-    vector<int> DFSbyLoop(vector<vector<int>>& graph) {
+    vector<int> randomTraversal(vector<vector<int>>& graph) {
+        // although it is not random, we are actually popping the last element
+        // from the bag and pushing its adjacents so it is actually DFS
         if (graph.empty()) {
             throw runtime_error("graph cannot be empty!");
         }
@@ -65,7 +67,7 @@ public:
 int main() {
     vector<vector<int>> graph = {{1, 2, 3}, {0, 3, 4}, {0, 3}, {0, 1, 4}, {1, 3, 5}, {4}};
     Solution sol = Solution();
-    vector<int> res = sol.DFSbyLoop(graph);
+    vector<int> res = sol.randomTraversal(graph);
     printVector(res);
 
     return 0;
