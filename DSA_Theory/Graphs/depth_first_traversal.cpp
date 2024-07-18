@@ -37,6 +37,22 @@ public:
         finishTime[node] = time;
         time++;
     }
+    
+    void dfsAtNodeUsingStack(int node, vector<list<int>>& adjList, vector<bool>& visitedArray, vector<int>& res, vector<int>& startTime, vector<int>& finishTime) {
+        stack<int> bag({node});
+        visitedArray[node] = true;
+        while (!bag.empty()) {
+            int top = bag.top();
+            res.push_back(top);
+            bag.pop();
+            for (auto index: adjList[top]) {
+                if (visitedArray[index] == false) {
+                    bag.push(index);
+                    visitedArray[index] = true;
+                }
+            }
+        }
+    }
 
     vector<int> dfs(vector<vector<int>>& graph) {
         // create the adjacency list
@@ -60,6 +76,7 @@ public:
         for (int i = 0; i < V; i++) {
             if (visitedArray[i] == false) {
                 dfsAtNode(i, adjList, visitedArray, res, startTime, finishTime);
+                // dfsAtNodeUsingStack(i, adjList, visitedArray, res, startTime, finishTime);
             }
         }
         printContainer(res);
